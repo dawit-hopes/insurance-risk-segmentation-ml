@@ -5,7 +5,16 @@ class EDA:
     def __init__(self, df: pd.DataFrame):
         self.df = df
 
-    def LR_analysis(self, col_name: str):
+    def LR_analysis(self, col_name: str) -> pd.DataFrame:
+        '''
+        This function takes a column name as input and returns a DataFrame with the total claims, total premium, and loss ratio for each group.
+
+        Args:
+            col_name (str): Column name to group by.
+        
+        Returns:
+            pd.DataFrame: DataFrame with total claims, total premium, and loss ratio for each group.
+        '''
         new_df = self.df.groupby(col_name)
 
         total_claim = new_df['TotalClaims'].sum()
@@ -19,7 +28,4 @@ class EDA:
         })
 
         analysis = analysis.sort_values(by='Loss Ratio (%)', ascending=False)
-
-        print(f"{col_name} overall Loss Ratio (TotalClaims / TotalPremium)")
-        print("\n")
-        print(analysis)
+        return analysis
